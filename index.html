@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Life</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ffe6f0, #ffd6e0);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      position: relative;
+    }
+
+    h1 {
+      color: #ff3366;
+      font-size: 2em;
+      margin-bottom: 20px;
+      z-index: 2;
+    }
+
+    .hearts {
+      font-size: 3em;
+      animation: pulse 1.5s infinite;
+      z-index: 2;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    button {
+      margin-top: 30px;
+      padding: 15px 30px;
+      background-color: #ff66a3;
+      color: white;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    video {
+      margin-top: 20px;
+      width: 300px;
+      border: 5px solid #ff99cc;
+      border-radius: 20px;
+      z-index: 2;
+    }
+
+    .you-text {
+      font-size: 1.5em;
+      color: #cc0052;
+      margin-top: 10px;
+      z-index: 2;
+    }
+
+    #cameraContainer {
+      z-index: 2;
+    }
+
+    .warning {
+      color: #cc0000;
+      font-size: 1.1em;
+      margin-top: 10px;
+      font-weight: bold;
+      z-index: 2;
+    }
+
+    /* Floating hearts */
+    .floating-heart {
+      position: absolute;
+      bottom: -50px;
+      font-size: 1.5em;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.6;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.6;
+      }
+      100% {
+        transform: translateY(-120vh) scale(1.2);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating hearts (randomly positioned) -->
+  <script>
+    for (let i = 0; i < 25; i++) {
+      const heart = document.createElement('div');
+      heart.className = 'floating-heart';
+      heart.innerText = ['💖','💞','💘','💗','💓'][Math.floor(Math.random() * 5)];
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDelay = Math.random() * 10 + 's';
+      heart.style.fontSize = (Math.random() * 1.5 + 1) + 'em';
+      document.body.appendChild(heart);
+    }
+  </script>
+
+  <div class="hearts">💖💞💘💝</div>
+  <h1>WANT TO SEE MY FUTURE WIFE...</h1>
+  <button onclick="startCamera()">TAP HERE</button>
+
+  <!-- Warning message -->
+  <div class="warning">⚠️ Be careful ❤️</div>
+
+  <!-- Camera Section -->
+  <div id="cameraContainer" style="display: none;">
+    <video id="video" autoplay playsinline></video>
+    <div class="you-text"><h2>OF COURSE YOU GULABO ❤️</h2></div>
+  </div>
+
+  <!-- Camera Script -->
+  <script>
+    function startCamera() {
+      const video = document.getElementById('video');
+      const cameraContainer = document.getElementById('cameraContainer');
+      cameraContainer.style.display = 'block';
+
+      navigator.mediaDevices.getUserMedia({
+        video: { facingMode: "user" },
+        audio: false
+      }).then(stream => {
+        video.srcObject = stream;
+      }).catch(error => {
+        alert("Camera access denied or not available 😢");
+        console.error(error);
+      });
+    }
+  </script>
+</body>
+</html>
